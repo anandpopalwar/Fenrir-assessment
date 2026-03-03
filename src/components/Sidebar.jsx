@@ -12,6 +12,8 @@ import {
   SquaresPlusIcon,
 } from "@heroicons/react/24/outline";
 import ThemeToggle from "../ui/ThemeToggle.jsx";
+import { Button } from "flowbite-react";
+import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/16/solid";
 
 function Sidebar({ open, onClose, onLogout }) {
   const { user } = useAuth();
@@ -69,8 +71,8 @@ function Sidebar({ open, onClose, onLogout }) {
         </nav>
       </div>
 
-      <div className="cursor-pointer rounded-lg p-2 transition">
-        <div className="flex items-center gap-3" onClick={onLogout}>
+      <div className="cursor-pointer rounded-lg p-2 transition flex flex-col gap-4">
+        <div className="flex items-center gap-3">
           <img
             src={user?.avatarUrl || "https://i.pravatar.cc/96?img=12"}
             alt="User avatar"
@@ -86,6 +88,13 @@ function Sidebar({ open, onClose, onLogout }) {
           </div>
           <ChevronRightIcon className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
         </div>
+        <Button
+          onClick={onLogout}
+          className="!flex !gap-2 !rounded-lg !border !border-neutral-300 !bg-white !px-4 !py-2 !text-sm !font-medium !text-neutral-700 hover:!bg-neutral-100 dark:!border-neutral-700 dark:!bg-neutral-900 dark:!text-neutral-200 dark:hover:!bg-neutral-800"
+        >
+          <ArrowRightEndOnRectangleIcon className="w-4 h-4" />
+          Logout
+        </Button>
       </div>
     </aside>
   );

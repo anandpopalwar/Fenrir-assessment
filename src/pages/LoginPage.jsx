@@ -6,18 +6,7 @@ import { MainLogo } from "../components/Utils/Icons";
 
 function LoginPage() {
   return (
-    <div
-      className="min-h-screen overflow-x-hidden bg-slate-100 p-0 sm:p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-teal-950 relative"
-      style={{
-        background: "#000000",
-        background:
-          "-webkit-linear-gradient(127deg,rgba(0, 0, 0, 1) 40%, rgba(15, 102, 102, 1) 63%, rgba(222, 148, 51, 1) 74%, rgba(201, 0, 0, 1) 81%, rgba(13, 10, 10, 1) 93%, rgba(138, 0, 0, 1) 100%)",
-        background:
-          "-moz-linear-gradient(127deg,rgba(0, 0, 0, 1) 40%, rgba(15, 102, 102, 1) 63%, rgba(222, 148, 51, 1) 74%, rgba(201, 0, 0, 1) 81%, rgba(13, 10, 10, 1) 93%, rgba(138, 0, 0, 1) 100%)",
-        background:
-          "linear-gradient(127deg,rgba(0, 0, 0, 1) 40%, rgba(15, 102, 102, 1) 63%, rgba(222, 148, 51, 1) 74%, rgba(201, 0, 0, 1) 81%, rgba(13, 10, 10, 1) 93%, rgba(138, 0, 0, 1) 100%)",
-      }}
-    >
+    <div className="gradient-bg min-h-screen overflow-x-hidden bg-slate-100 p-0 sm:p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-teal-950 relative">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-20 top-20 h-72 w-72 rounded-full bg-teal-500/15 blur-3xl" />
         <div className="absolute -right-24 bottom-8 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />

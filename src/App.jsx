@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
-import PublicRoute from "./components/PublicRoute";
 import AppLayout from "./layout/AppLayout";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import ScanPage from "./pages/ScanPage";
-import RootRedirect from "./components/RootRedirect";
 import Projects from "./pages/Projects";
+import NotFoundPage from "./pages/NotFoundPage";
+import PublicRoute from "./components/Routes/PublicRoute";
+import RootRedirect from "./components/Routes/RootRedirect";
+import ProtectedRoute from "./components/Routes/ProtectedRoute";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="*" element={<RootRedirect />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

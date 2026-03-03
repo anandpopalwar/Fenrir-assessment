@@ -1,50 +1,48 @@
-import { useParams } from "react-router-dom";
+import { useScan } from "../context/ScanContext.jsx";
+import { formatToHHMMSS } from "../helpers/helpers.js";
 
 function ScanPage() {
-  const { id } = useParams();
+  const { isScanRunning, scanData, isScanCompleted } = useScan();
 
   return (
     <section className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1>Scan {id}</h1>
-          <p className="mt-2">
-            Detailed execution and risk distribution for this scan run.
-          </p>
+        <div className="w-full rounded-xl border p-4 border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+          {isScanRunning ? (
+            <h3>Scan is Running</h3>
+          ) : (
+            <h3>Scan is not Running</h3>
+          )}
+
+          {scanData.data.length > 0 ? (
+            scanData.data.map((item) => (
+              <div className="text-sm flex flex-wrap" key={item?.id}>
+                <div className=" text-slate-400 mr-2">
+                  {formatToHHMMSS(item?.timestamp)}:
+                </div>
+                <div className=" ">{item?.message}</div>
+              </div>
+            ))
+          ) : (
+            <h5>Start Scanning</h5>
+          )}
+          {isScanCompleted && (
+            <div className="flex flex-col gap-2">
+              <div className="text-lg">Scan Completed</div>
+            </div>
+          )}
+
+          {scanData?.status && (
+            <div className="text-lg flex gap-2">
+              Scan Status :
+              <div
+                className={`badge uppercase text-[var(--${scanData.status === "success" ? "primary" : "critical"})]`}
+              >
+                {scanData.status}
+              </div>
+            </div>
+          )}
         </div>
-        <span className="chip chip-medium">In progress</span>
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-3">
-        <article className="surface-card p-6 lg:col-span-2">
-          <h2 className="text-xl">Progress</h2>
-          <p className="mt-2">62% completed. Estimated finish in 8 minutes.</p>
-          <div className="mt-5 h-3 w-full rounded-full bg-[var(--surface-2)]">
-            <div className="h-3 w-[62%] rounded-full bg-[var(--primary)]" />
-          </div>
-        </article>
-
-        <article className="surface-card p-6">
-          <h2 className="text-xl">Severity Split</h2>
-          <div className="mt-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="chip chip-critical">Critical</span>
-              <span className="text-sm font-semibold">3</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="chip chip-high">High</span>
-              <span className="text-sm font-semibold">7</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="chip chip-medium">Medium</span>
-              <span className="text-sm font-semibold">12</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="chip chip-low">Low</span>
-              <span className="text-sm font-semibold">24</span>
-            </div>
-          </div>
-        </article>
       </div>
     </section>
   );

@@ -145,3 +145,16 @@
     @apply bg-green-100 text-green-700 dark:bg-green-950/70 dark:text-green-300;
   }
 }
+
+.gradient-bg {
+  background: #000000;
+  background: linear-gradient(
+    127deg,
+    rgba(0, 0, 0, 1) 40%,
+    rgba(15, 102, 102, 1) 63%,
+    rgba(222, 148, 51, 1) 74%,
+    rgba(201, 0, 0, 1) 81%,
+    rgba(13, 10, 10, 1) 93%,
+    rgba(138, 0, 0, 1) 100%
+  );
+}

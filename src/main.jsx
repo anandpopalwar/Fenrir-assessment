@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
+import { ScanProvider } from './context/ScanContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
       <AuthProvider>
-        <App />
+        <ScanProvider>
+          <App />
+        </ScanProvider>
       </AuthProvider>
     </ThemeProvider>
   </StrictMode>,

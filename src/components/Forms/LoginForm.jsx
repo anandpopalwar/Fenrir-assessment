@@ -5,6 +5,14 @@ import { AppleIcon, GoogleIcon, MetaIcon } from "../Utils/Icons";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
+const initialErrors = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  agree: "",
+};
+
 const LoginForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -12,18 +20,51 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [agree, setAgree] = useState(false);
+  const [errors, setErrors] = useState(initialErrors);
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const isValidPassword = (value) =>
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(value);
+
+  const validate = () => {
+    const nextErrors = { ...initialErrors };
+
+    if (!firstName.trim()) nextErrors.firstName = "First name is required.";
+    if (!lastName.trim()) nextErrors.lastName = "Last name is required.";
+
+    if (!email.trim()) {
+      nextErrors.email = "Email is required.";
+    } else if (!isValidEmail(email)) {
+      nextErrors.email = "Enter a valid email address.";
+    }
+
+    if (!password) {
+      nextErrors.password = "Password is required.";
+    } else if (!isValidPassword(password)) {
+      nextErrors.password =
+        "Password must be at least 8 chars, with 1 uppercase, 1 number, and 1 special character.";
+    }
+
+    if (!agree) nextErrors.agree = "You must accept terms to continue.";
+
+    setErrors(nextErrors);
+    return Object.values(nextErrors).every((value) => !value);
+  };
+
+  const clearError = (field) => {
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!firstName || !lastName || !email || !password || !agree) {
-      return;
-    }
+    if (!validate()) return;
+
     login({
-      firstName,
-      lastName,
-      email,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim(),
       role: "Security Analyst",
       avatarUrl: "",
     });
@@ -42,7 +83,7 @@ const LoginForm = () => {
         </a>
       </p>
 
-      <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+      <form className="mt-6 space-y-4" onSubmit={handleSubmit} noValidate>
         <div>
           <div className="mb-1 block">
             <Label
@@ -55,12 +96,20 @@ const LoginForm = () => {
             id="firstName"
             type="text"
             value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
+            onChange={(event) => {
+              setFirstName(event.target.value);
+              clearError("firstName");
+            }}
+            onBlur={validate}
             autoComplete="given-name"
             placeholder="Anand"
+            color={errors.firstName ? "failure" : "gray"}
             className="[&_input]:!border-slate-300 [&_input]:!bg-white [&_input]:!text-slate-900 [&_input]:placeholder:!text-slate-400"
             required
           />
+          {errors.firstName ? (
+            <p className="mt-1 text-xs text-red-600">{errors.firstName}</p>
+          ) : null}
         </div>
 
         <div>
@@ -75,12 +124,20 @@ const LoginForm = () => {
             id="lastName"
             type="text"
             value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
+            onChange={(event) => {
+              setLastName(event.target.value);
+              clearError("lastName");
+            }}
+            onBlur={validate}
             autoComplete="family-name"
             placeholder="Popalwar"
+            color={errors.lastName ? "failure" : "gray"}
             className="[&_input]:!border-slate-300 [&_input]:!bg-white [&_input]:!text-slate-900 [&_input]:placeholder:!text-slate-400"
             required
           />
+          {errors.lastName ? (
+            <p className="mt-1 text-xs text-red-600">{errors.lastName}</p>
+          ) : null}
         </div>
 
         <div>
@@ -91,12 +148,20 @@ const LoginForm = () => {
             id="email"
             type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              clearError("email");
+            }}
+            onBlur={validate}
             autoComplete="email"
             placeholder="you@example.com"
+            color={errors.email ? "failure" : "gray"}
             className="[&_input]:!border-slate-300 [&_input]:!bg-white [&_input]:!text-slate-900 [&_input]:placeholder:!text-slate-400"
             required
           />
+          {errors.email ? (
+            <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+          ) : null}
         </div>
 
         <div>
@@ -112,10 +177,15 @@ const LoginForm = () => {
               id="password"
               type={showPassword ? "text" : "password"}
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) => {
+                setPassword(event.target.value);
+                clearError("password");
+              }}
+              onBlur={validate}
               autoComplete="new-password"
               placeholder="********"
               minLength={8}
+              color={errors.password ? "failure" : "gray"}
               className="[&_input]:!border-slate-300 [&_input]:!bg-white [&_input]:!pr-10 [&_input]:!text-slate-900 [&_input]:placeholder:!text-slate-400"
               required
             />
@@ -132,13 +202,19 @@ const LoginForm = () => {
               )}
             </button>
           </div>
+          {errors.password ? (
+            <p className="mt-1 text-xs text-red-600">{errors.password}</p>
+          ) : null}
         </div>
 
         <div className="flex items-start gap-2 pt-1 text-xs text-slate-500 ">
           <Checkbox
             id="agreeTerms"
             checked={agree}
-            onChange={(event) => setAgree(event.target.checked)}
+            onChange={(event) => {
+              setAgree(event.target.checked);
+              clearError("agree");
+            }}
             className="!border-slate-300 !bg-white !text-teal-600 focus:!ring-teal-500"
             required
           />
@@ -162,6 +238,9 @@ const LoginForm = () => {
             </a>
           </Label>
         </div>
+        {errors.agree ? (
+          <p className="-mt-2 text-xs text-red-600">{errors.agree}</p>
+        ) : null}
 
         <Button
           type="submit"

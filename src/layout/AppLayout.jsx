@@ -4,14 +4,17 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import Backdrop from "../components/Backdrop";
 import Sidebar from "../components/Sidebar";
 import { useAuth } from "../context/AuthContext";
+import { useScan } from "../context/ScanContext";
 import { Button } from "flowbite-react";
 import { ArrowUpIcon } from "@heroicons/react/16/solid";
+import { useNavigate } from "react-router-dom";
 
 function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
-
-  const { isScanRunning, toggleScanRunning, logout } = useAuth();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const { isScanRunning, toggleScanRunning } = useScan();
 
   useEffect(() => {
     setIsSidebarOpen(false);
@@ -28,6 +31,7 @@ function AppLayout() {
     document.body.style.overflow = "";
     return undefined;
   }, [isSidebarOpen]);
+
   return (
     <div className="h-screen overflow-hidden bg-[var(--bg)]">
       <div className="flex h-full min-h-0">
@@ -62,7 +66,10 @@ function AppLayout() {
                       Export Report
                     </Button>
                     <Button
-                      onClick={toggleScanRunning}
+                      onClick={() => {
+                        navigate("/scans");
+                        toggleScanRunning();
+                      }}
                       className={`!rounded-lg  !px-4 !py-2 !text-sm !font-semibold ${
                         isScanRunning
                           ? "border border-2 border-red-600 !bg-red-100/50  !text-red-600 dark:!bg-red-700/50  "
