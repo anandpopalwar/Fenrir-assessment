@@ -1,14 +1,16 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 function ScanPage() {
-  const { id } = useParams()
+  const { id } = useParams();
 
   return (
     <section className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1>Scan {id}</h1>
-          <p className="mt-2">Detailed execution and risk distribution for this scan run.</p>
+          <p className="mt-2">
+            Detailed execution and risk distribution for this scan run.
+          </p>
         </div>
         <span className="chip chip-medium">In progress</span>
       </div>
@@ -45,7 +47,7 @@ function ScanPage() {
         </article>
       </div>
     </section>
-  )
+  );
 }
 
-export default ScanPage
+export default ScanPage;

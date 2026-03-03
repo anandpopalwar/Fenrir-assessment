@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -17,8 +17,11 @@
   --critical: #ef4444;
   --high: #f97316;
   --medium: #f59e0b;
-  --low: #22c55e;
+  --low: #2258c5;
   --shadow-soft: 0 8px 28px rgba(10, 10, 10, 0.06);
+
+  --sidebar-active-bg: #def5f1;
+  /* soft teal background */
 }
 
 .dark {
@@ -34,8 +37,11 @@
   --critical: #f87171;
   --high: #fb923c;
   --medium: #fbbf24;
-  --low: #4ade80;
+  --low: #2964dc;
   --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.35);
+
+  --sidebar-active-bg: #064e4b;
+  /* deep teal */
 }
 
 @layer base {
@@ -51,6 +57,33 @@
 
   body {
     @apply m-0 overflow-x-hidden bg-[var(--bg)] font-['Inter',sans-serif] text-[var(--text)] antialiased;
+  }
+
+  /* Theme-aware scrollbar (Firefox) */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--surface-2);
+  }
+
+  /* Theme-aware scrollbar (Chromium, Safari, Edge) */
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--surface-2);
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border: 2px solid var(--surface-2);
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
   }
 
   h1 {

@@ -2,6 +2,7 @@ import { loginPageStatements } from "../data/loginpagedata";
 import Statement from "../components/Statement";
 import { StarIcon } from "@heroicons/react/16/solid";
 import LoginForm from "../components/Forms/LoginForm";
+import { MainLogo } from "../components/Utils/Icons";
 
 function LoginPage() {
   return (
@@ -22,12 +23,7 @@ function LoginPage() {
         <div className="absolute -right-24 bottom-8 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
       </div>
       <div className="absolute left-5 top-5 inline-flex items-center gap-3">
-        <div className="h-8 w-8 rounded-full bg-teal-400 grid place-items-center">
-          <div className="h-3.5 w-3.5 rounded-full bg-white " />
-        </div>
-        <span className="text-sm font-medium tracking-wide text-slate-200">
-          aps
-        </span>
+        <MainLogo />
       </div>
 
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-[1280px] items-center justify-center overflow-hidden rounded-3xl md:grid md:grid-cols-2">

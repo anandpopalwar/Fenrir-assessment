@@ -1,11 +1,12 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ProtectedRoute from './components/ProtectedRoute'
-import PublicRoute from './components/PublicRoute'
-import AppLayout from './layout/AppLayout'
-import DashboardPage from './pages/DashboardPage'
-import LoginPage from './pages/LoginPage'
-import ScanPage from './pages/ScanPage'
-import RootRedirect from './components/RootRedirect'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+import AppLayout from "./layout/AppLayout";
+import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
+import ScanPage from "./pages/ScanPage";
+import RootRedirect from "./components/RootRedirect";
+import Projects from "./pages/Projects";
 
 function App() {
   return (
@@ -19,15 +20,16 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
+            <Route path="/projects" element={<Projects />} />
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/scan/:id" element={<ScanPage />} />
+            <Route path="/scans" element={<ScanPage />} />
           </Route>
         </Route>
 
         <Route path="*" element={<RootRedirect />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

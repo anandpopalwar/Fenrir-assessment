@@ -58,3 +58,16 @@ export const MetaIcon = (props) => (
     </g>
   </svg>
 );
+
+export const MainLogo = () => {
+  return (
+    <>
+      <div className="h-8 w-8 rounded-full bg-teal-400 grid place-items-center">
+        <div className="h-3.5 w-3.5 rounded-full bg-white " />
+      </div>
+      <span className="text-sm font-medium tracking-wide text-[var(--text)]">
+        aps
+      </span>
+    </>
+  );
+};
