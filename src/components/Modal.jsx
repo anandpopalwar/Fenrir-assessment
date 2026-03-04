@@ -47,28 +47,28 @@ function Modal({
         aria-modal="true"
         aria-label={title}
         onClick={stopPropagation}
-        className="w-full max-w-lg rounded-xl border border-neutral-200 bg-white shadow-xl dark:border-neutral-700 dark:bg-neutral-900"
+        className="w-full max-w-lg rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-soft)]"
       >
-        <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4 dark:border-neutral-700">
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
+        <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
+          <h3 className="text-lg font-semibold text-[var(--text)]">
             {title}
           </h3>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md p-1 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+            className="rounded-md p-1 text-[var(--muted)] transition hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
             aria-label="Close modal"
           >
             <XMarkIcon className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="px-5 py-4 text-neutral-700 dark:text-neutral-200">
+        <div className="px-5 py-4 text-[var(--text)]">
           {children}
         </div>
 
         {footer ? (
-          <div className="border-t border-neutral-200 px-5 py-4 dark:border-neutral-700">
+          <div className="border-t border-[var(--border)] px-5 py-4">
             {footer}
           </div>
         ) : null}

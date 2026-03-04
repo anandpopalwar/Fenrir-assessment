@@ -4,9 +4,9 @@ const Statement = ({ text, icon }) => {
   return (
     <li className="flex items-start gap-3">
       {icon === "check" ? (
-        <CheckIcon className="h-5 w-5 text-emerald-300" />
+        <CheckIcon className="h-5 w-5 text-[var(--low)]" />
       ) : (
-        <XMarkIcon className="h-5 w-5 text-red-300" />
+        <XMarkIcon className="h-5 w-5 text-[var(--critical)]" />
       )}
       <span>{text}</span>
     </li>

@@ -19,7 +19,6 @@
   --medium: #f59e0b;
   --low: #2258c5;
   --shadow-soft: 0 8px 28px rgba(10, 10, 10, 0.06);
-
   --sidebar-active-bg: #def5f1;
   /* soft teal background */
 }
@@ -114,11 +113,11 @@
   }
 
   .input-control {
-    @apply w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--text)] outline-none transition placeholder:text-neutral-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[#0CC8A840];
+    @apply w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--text)] outline-none transition placeholder:text-[var(--muted)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[#0CC8A840];
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-semibold text-neutral-950 transition hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-[#0CC8A840];
+    @apply inline-flex items-center justify-center rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-[#0CC8A840];
   }
 
   .btn-neutral {
@@ -130,19 +129,19 @@
   }
 
   .chip-critical {
-    @apply bg-red-100 text-red-700 dark:bg-red-950/70 dark:text-red-300;
+    @apply bg-[var(--surface-2)] text-[var(--critical)];
   }
 
   .chip-high {
-    @apply bg-orange-100 text-orange-700 dark:bg-orange-950/70 dark:text-orange-300;
+    @apply bg-[var(--surface-2)] text-[var(--high)];
   }
 
   .chip-medium {
-    @apply bg-amber-100 text-amber-700 dark:bg-amber-950/70 dark:text-amber-300;
+    @apply bg-[var(--surface-2)] text-[var(--medium)];
   }
 
   .chip-low {
-    @apply bg-green-100 text-green-700 dark:bg-green-950/70 dark:text-green-300;
+    @apply bg-[var(--surface-2)] text-[var(--low)];
   }
 }
 

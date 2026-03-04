@@ -6,8 +6,8 @@ function Loading({ label = "Loading...", fullScreen = false }) {
       aria-live="polite"
     >
       <div className="flex flex-col items-center gap-3">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-neutral-200 border-t-[var(--primary)] dark:border-neutral-700 dark:border-t-[var(--primary)]" />
-        <p className="text-sm font-medium text-neutral-600 dark:text-neutral-300">{label}</p>
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[var(--border)] border-t-[var(--primary)]" />
+        <p className="text-sm font-medium text-[var(--muted)]">{label}</p>
       </div>
     </div>
   );

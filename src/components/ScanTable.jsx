@@ -9,10 +9,10 @@ import {
 import { Button } from "flowbite-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { scanRows } from "../mockdata/TableData.js";
-import { formatTime } from "../helpers/helpers";
 import Modal from "./Modal";
 import SortOptionsForm from "./Forms/SortOptionsForm";
 import Loading from "./Loading";
+import ScanTableRow from "./ScanTableRow.jsx";
 
 const TableHeaders = [
   "Scan Name",
@@ -22,16 +22,6 @@ const TableHeaders = [
   "Vulnerability",
   "Last Scan",
 ];
-
-function statusClass(status) {
-  if (status === "Completed") {
-    return "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-400 border border-green-700 dark:border-green-400";
-  }
-  if (status === "Failed") {
-    return "bg-red-100 text-red-700 border-red-700 dark:bg-red-900 dark:text-red-400 border dark:border-red-400";
-  }
-  return "bg-blue-100 text-blue-700 border-blue-700 dark:bg-blue-900 dark:text-blue-300 border dark:border-blue-400";
-}
 
 const ITEMS_PER_PAGE = 5;
 
@@ -126,10 +116,10 @@ const ScanTable = () => {
   }, [filters]);
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden dark:border-neutral-700 dark:bg-neutral-900">
-      <div className="flex flex-1 flex-col gap-4 border-b border-neutral-200 p-4 lg:flex-row lg:items-center lg:justify-between lg:p-6 dark:border-neutral-700">
+    <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-soft)]">
+      <div className="flex flex-1 flex-col gap-4 border-b border-[var(--border)] p-4 lg:flex-row lg:items-center lg:justify-between lg:p-6">
         <div className="relative w-full flex-1">
-          <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+          <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted)]" />
           <input
             value={searchTerm}
             onChange={(e) => {
@@ -138,7 +128,7 @@ const ScanTable = () => {
             }}
             type="text"
             placeholder="Search scans by name or type..."
-            className="w-full rounded-lg border border-neutral-200 bg-white py-2.5 pl-10 pr-3 text-sm text-neutral-900 outline-none transition focus:border-[var(--primary)] focus:ring-2 focus:ring-[#0CC8A840] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-400"
+            className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] py-2.5 pl-10 pr-3 text-sm text-[var(--text)] outline-none transition placeholder:text-[var(--muted)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[#0CC8A840]"
           />
         </div>
 
@@ -147,16 +137,16 @@ const ScanTable = () => {
             onClick={() => {
               setFilterModal(true);
             }}
-            className="!rounded-lg !border !border-neutral-300 !bg-white !px-3 !py-2 !text-sm !font-medium !text-neutral-700 hover:!bg-neutral-50 dark:!border-neutral-700 dark:!bg-neutral-900 dark:!text-neutral-200 dark:hover:!bg-neutral-800"
+            className="!rounded-lg !border !border-[var(--border)] !bg-[var(--surface)] !px-3 !py-2 !text-sm !font-medium !text-[var(--text)] hover:!bg-[var(--surface-2)]"
           >
             <FunnelIcon className="mr-1.5 h-4 w-4" />
             Filter
           </Button>
-          <Button className="!rounded-lg !border !border-neutral-300 !bg-white !px-3 !py-2 !text-sm !font-medium !text-neutral-700 hover:!bg-neutral-50 dark:!border-neutral-700 dark:!bg-neutral-900 dark:!text-neutral-200 dark:hover:!bg-neutral-800">
+          <Button className="!rounded-lg !border !border-[var(--border)] !bg-[var(--surface)] !px-3 !py-2 !text-sm !font-medium !text-[var(--text)] hover:!bg-[var(--surface-2)]">
             <ViewColumnsIcon className="mr-1.5 h-4 w-4" />
             Column
           </Button>
-          <Button className="!rounded-lg !bg-teal-600 !px-3 !py-2 !text-sm !font-semibold !text-white hover:!bg-teal-600 dark:!bg-teal-500 dark:hover:!bg-teal-600">
+          <Button className="!rounded-lg !bg-[var(--primary)] !px-3 !py-2 !text-sm !font-semibold !text-[var(--text)] hover:!bg-[var(--primary-hover)]">
             <PlusIcon className="mr-1.5 h-4 w-4" />
             New Scan
           </Button>
@@ -168,10 +158,10 @@ const ScanTable = () => {
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-[980px] w-full">
-            <thead className="border-b border-neutral-200 dark:border-neutral-700">
+            <thead className="border-b border-[var(--border)]">
               <tr>
                 {TableHeaders.map((header) => (
-                  <th className="px-6 py-3 text-left text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                  <th className="px-6 py-3 text-left text-sm font-medium text-[var(--muted)]">
                     {header}
                   </th>
                 ))}
@@ -179,76 +169,27 @@ const ScanTable = () => {
             </thead>
             <tbody>
               {currentData.map((row) => (
-                <tr
-                  key={row.name}
-                  className="border-b border-neutral-100 transition hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
-                >
-                  <td className="px-6 py-4 text-sm font-medium text-neutral-900 dark:text-white">
-                    {row.name}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-300">
-                    {row.type}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`rounded-md px-3 py-1 text-sm  ${statusClass(row.status)}`}
-                    >
-                      {row.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="h-2 w-32 rounded-full bg-neutral-200 dark:bg-neutral-700">
-                        <div
-                          className="h-2 rounded-full bg-teal-600 "
-                          style={{ width: `${row.progress}%` }}
-                        />
-                      </div>
-                      <span className="text-sm text-neutral-600 dark:text-neutral-300">
-                        {row.progress}%
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <span className="rounded-md bg-red-100 px-2 py-1 text-xs font-semibold text-red-700 dark:bg-red-900 dark:text-red-400">
-                        {row.vulnerability.critical}
-                      </span>
-                      <span className="rounded-md bg-orange-100 px-2 py-1 text-xs font-semibold text-orange-700 dark:bg-orange-900 dark:text-orange-400">
-                        {row.vulnerability.high}
-                      </span>
-                      <span className="rounded-md bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-900 dark:text-amber-400">
-                        {row.vulnerability.medium}
-                      </span>
-                      <span className="rounded-md bg-green-100 px-2 py-1 text-xs font-semibold text-green-700 dark:bg-green-900 dark:text-green-400">
-                        {row.vulnerability.low}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                    {formatTime(row.lastScan)}
-                  </td>
-                </tr>
+                <ScanTableRow key={row.name} {...row} />
               ))}
             </tbody>
           </table>
         </div>
       )}
 
-      <div className="flex flex-col gap-3 border-t border-neutral-200 p-4 md:flex-row md:items-center md:justify-between md:p-6 dark:border-neutral-700">
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+      <div className="flex flex-col gap-3 border-t border-[var(--border)] p-4 md:flex-row md:items-center md:justify-between md:p-6">
+        <p className="text-sm text-[var(--muted)]">
           Showing {ITEMS_PER_PAGE} of {RenderedDataLength} Scans
         </p>
         <div className="flex items-center gap-2">
           <Button
             onClick={handlePrev}
-            className="!rounded-lg !border !border-neutral-300 !bg-white !px-3 !py-2 !text-sm !font-medium !text-neutral-700 hover:!bg-neutral-50 dark:!border-neutral-700 dark:!bg-neutral-900 dark:!text-neutral-200 dark:hover:!bg-neutral-800"
+            className="!rounded-lg !border !border-[var(--border)] !bg-[var(--surface)] !px-3 !py-2 !text-sm !font-medium !text-[var(--text)] hover:!bg-[var(--surface-2)]"
           >
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
           <Button
             onClick={handleNext}
-            className="!rounded-lg !border !border-neutral-300 !bg-white !px-3 !py-2 !text-sm !font-medium !text-neutral-700 hover:!bg-neutral-50 dark:!border-neutral-700 dark:!bg-neutral-900 dark:!text-neutral-200 dark:hover:!bg-neutral-800"
+            className="!rounded-lg !border !border-[var(--border)] !bg-[var(--surface)] !px-3 !py-2 !text-sm !font-medium !text-[var(--text)] hover:!bg-[var(--surface-2)]"
           >
             <ChevronRightIcon className="h-4 w-4" />
           </Button>

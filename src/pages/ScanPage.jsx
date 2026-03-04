@@ -1,44 +1,60 @@
+import ScanStatments from "../components/ScanStatments.jsx";
 import { useScan } from "../context/ScanContext.jsx";
 import { formatToHHMMSS } from "../helpers/helpers.js";
 
 function ScanPage() {
   const { isScanRunning, scanData, isScanCompleted } = useScan();
 
+  const statusBadgeClass =
+    scanData?.status === "success"
+      ? "bg-[var(--surface-2)] text-[var(--primary)]"
+      : "bg-[var(--surface-2)] text-[var(--critical)]";
+
   return (
-    <section className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="w-full rounded-xl border p-4 border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-          {isScanRunning ? (
-            <h3>Scan is Running</h3>
-          ) : (
-            <h3>Scan is not Running</h3>
-          )}
+    <section className="mx-auto  space-y-6 p-2 ">
+      <div className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-soft)] overflow-hidden">
+        <div className="border-b border-[var(--border)] px-6 py-4">
+          <h2 className="text-xl font-semibold text-[var(--text)]">
+            Scan Monitor
+          </h2>
+          <p className="mt-1 text-sm text-[var(--muted)]">
+            Real-time execution logs and current scan state.
+          </p>
+        </div>
 
-          {scanData.data.length > 0 ? (
-            scanData.data.map((item) => (
-              <div className="text-sm flex flex-wrap" key={item?.id}>
-                <div className=" text-slate-400 mr-2">
-                  {formatToHHMMSS(item?.timestamp)}:
-                </div>
-                <div className=" ">{item?.message}</div>
-              </div>
-            ))
-          ) : (
-            <h5>Start Scanning</h5>
-          )}
-          {isScanCompleted && (
-            <div className="flex flex-col gap-2">
-              <div className="text-lg">Scan Completed</div>
+        <div className="space-y-4 px-6 py-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="text-sm font-medium text-[var(--text)]">
+              {isScanRunning ? "Scan is Running" : "Scan is not Running"}
             </div>
-          )}
 
-          {scanData?.status && (
-            <div className="text-lg flex gap-2">
-              Scan Status :
+            {scanData?.status ? (
               <div
-                className={`badge uppercase text-[var(--${scanData.status === "success" ? "primary" : "critical"})]`}
+                className={`rounded-md px-3 py-1 text-lg font-semibold uppercase ${statusBadgeClass}`}
               >
                 {scanData.status}
+              </div>
+            ) : null}
+          </div>
+
+          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-soft)]">
+            {scanData.data.length > 0 ? (
+              <div className="divide-y divide-[var(--border)]">
+                {scanData.data.map((item) => (
+                  <ScanStatments key={item.id} {...item} />
+                ))}
+              </div>
+            ) : (
+              <div className="px-4 py-6 text-sm text-[var(--muted)]">
+                Start Scanning
+              </div>
+            )}
+          </div>
+
+          {isScanCompleted && (
+            <div className="rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-4 py-3">
+              <div className="text-sm font-semibold text-[var(--text)]">
+                Scan Completed
               </div>
             </div>
           )}

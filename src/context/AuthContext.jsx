@@ -1,10 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import {
-  VITE_AUTH_STORAGE_KEY,
-  VITE_AUTH_USER_STORAGE_KEY,
-  readStoredAuth,
-  readStoredUser,
-} from "../config/auth";
+
+import { AUTH_STORAGE_KEY, AUTH_USER_STORAGE_KEY } from "../config/env";
+import { readStoredAuth, readStoredUser } from "../config/auth";
 
 const AuthContext = createContext(null);
 
@@ -20,18 +17,15 @@ export function AuthProvider({ children }) {
       role: userData.role ?? "Security Analyst",
       avatarUrl: userData.avatarUrl ?? "",
     };
-    localStorage.setItem(VITE_AUTH_STORAGE_KEY, "true");
-    localStorage.setItem(
-      VITE_AUTH_USER_STORAGE_KEY,
-      JSON.stringify(sanitizedUser),
-    );
+    localStorage.setItem(AUTH_STORAGE_KEY, "true");
+    localStorage.setItem(AUTH_USER_STORAGE_KEY, JSON.stringify(sanitizedUser));
     setIsLoggedIn(true);
     setUser(sanitizedUser);
   };
 
   const logout = () => {
-    localStorage.removeItem(VITE_AUTH_STORAGE_KEY);
-    localStorage.removeItem(VITE_AUTH_USER_STORAGE_KEY);
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    localStorage.removeItem(AUTH_USER_STORAGE_KEY);
     setIsLoggedIn(false);
     setUser(null);
   };

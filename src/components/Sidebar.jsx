@@ -26,7 +26,7 @@ function Sidebar({ open, onClose, onLogout }) {
     `block rounded-full px-3 py-2.5 text-sm font-medium transition flex gap-4  ${
       isActive
         ? "bg-[var(--sidebar-active-bg)] text-[var(--primary)]"
-        : "text-slate-500 hover:bg-[var(--sidebar-active-bg)] hover:text-[var(--primary)]"
+        : "text-[var(--muted)] hover:bg-[var(--sidebar-active-bg)] hover:text-[var(--primary)]"
     }`;
 
   return (
@@ -58,7 +58,7 @@ function Sidebar({ open, onClose, onLogout }) {
                     <div className="flex gap-4">
                       {
                         <SVGIcon
-                          className={`h-5 w-5 ${isActive ? "bg-[var(--sidebar-active-bg)]" : "text-slate-500"}  hover:text-[var(--primary)]`}
+                          className={`h-5 w-5 ${isActive ? "bg-[var(--sidebar-active-bg)]" : "text-[var(--muted)]"}  hover:text-[var(--primary)]`}
                         />
                       }
                       {name}
@@ -79,18 +79,18 @@ function Sidebar({ open, onClose, onLogout }) {
             className="h-11 w-11 rounded-full object-cover"
           />
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs text-neutral-500 dark:text-neutral-400">
+            <p className="truncate text-xs text-[var(--muted)]">
               {user?.email || "No email"}
             </p>
-            <p className="truncate text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+            <p className="truncate text-sm font-semibold text-[var(--text)]">
               {user?.role || fullName}
             </p>
           </div>
-          <ChevronRightIcon className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
+          <ChevronRightIcon className="h-4 w-4 text-[var(--muted)]" />
         </div>
         <Button
           onClick={onLogout}
-          className="!flex !gap-2 !rounded-lg !border !border-neutral-300 !bg-white !px-4 !py-2 !text-sm !font-medium !text-neutral-700 hover:!bg-neutral-100 dark:!border-neutral-700 dark:!bg-neutral-900 dark:!text-neutral-200 dark:hover:!bg-neutral-800"
+          className="!flex !gap-2 !rounded-lg !border !border-[var(--border)] !bg-[var(--surface)] !px-4 !py-2 !text-sm !font-medium !text-[var(--text)] hover:!bg-[var(--surface-2)]"
         >
           <ArrowRightEndOnRectangleIcon className="w-4 h-4" />
           Logout
@@ -102,7 +102,7 @@ function Sidebar({ open, onClose, onLogout }) {
 
 export default Sidebar;
 
-export const sidebarItems = [
+const sidebarItems = [
   // Main Section
   {
     name: "Dashboard",

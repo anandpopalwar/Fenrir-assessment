@@ -17,7 +17,7 @@ export function ScanProvider({ children }) {
   const [scanData, setScanData] = useState({ status: "", data: [] });
 
   const StartScanning = () => {
-    const Scan = mockData[Math.floor(Math.random() * 3)];
+    const Scan = mockData[Math.floor(Math.random() * mockData.length)];
     setScanData({ status: "", data: [] });
     setIsScanCompleted(false);
 
