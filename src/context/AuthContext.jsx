@@ -4,7 +4,7 @@ import {
   VITE_AUTH_USER_STORAGE_KEY,
   readStoredAuth,
   readStoredUser,
-} from "../data/auth";
+} from "../config/auth";
 
 const AuthContext = createContext(null);
 

@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button } from "flowbite-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { scanRows } from "../data/TableData.js";
+import { scanRows } from "../mockdata/TableData.js";
 import { formatTime } from "../helpers/helpers";
 import Modal from "./Modal";
 import SortOptionsForm from "./Forms/SortOptionsForm";

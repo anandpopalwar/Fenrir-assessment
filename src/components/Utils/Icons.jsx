@@ -59,13 +59,15 @@ export const MetaIcon = (props) => (
   </svg>
 );
 
-export const MainLogo = () => {
+export const MainLogo = ({ primary = false }) => {
   return (
     <>
-      <div className="h-8 w-8 rounded-full bg-teal-400 grid place-items-center">
+      <div className="h-8 w-8 rounded-full bg-[var(--primary)] grid place-items-center">
         <div className="h-3.5 w-3.5 rounded-full bg-white " />
       </div>
-      <span className="text-sm font-medium tracking-wide text-[var(--text)]">
+      <span
+        className={`${primary ? "text-lg" : "text-sm"} font-medium tracking-wide ${primary ? "text-[var(--primary)]" : "text-[var(--text)]"} `}
+      >
         aps
       </span>
     </>

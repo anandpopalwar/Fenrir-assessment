@@ -38,7 +38,7 @@ function Sidebar({ open, onClose, onLogout }) {
       <div className="pb-4">
         <div className="mb-8  w-full inline-flex items-center place-content-between">
           <div className="pointer-events-none inset-0 flex inline-flex  items-center gap-2">
-            <MainLogo />
+            <MainLogo primary={true} />
           </div>
           <ThemeToggle />
         </div>

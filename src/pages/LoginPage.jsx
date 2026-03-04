@@ -1,4 +1,4 @@
-import { loginPageStatements } from "../data/loginpagedata";
+import { loginPageStatements } from "../mockdata/loginpagedata";
 import Statement from "../components/Statement";
 import { StarIcon } from "@heroicons/react/16/solid";
 import LoginForm from "../components/Forms/LoginForm";

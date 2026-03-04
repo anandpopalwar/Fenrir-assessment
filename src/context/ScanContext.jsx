@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { mockData } from "../data/ScanData";
+import { mockData } from "../mockdata/ScanData";
 
 const ScanContext = createContext(null);
 
