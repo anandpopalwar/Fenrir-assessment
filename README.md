@@ -1,16 +1,47 @@
-# React + Vite
+Author
+Anand Popalwar-Frontend Developer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a frontend implementation of a security scanning dashboard UI built as part of a technical assessment. The goal of the project is to recreate a professional B2B SASS interface using modern React practices while maintaining clean design, responsiveness, and theme support.
 
-Currently, two official plugins are available:
+The Application includes
+1)Login / Sign-up page
+2)Dashboard with scan statistics
+3)Scan list with filtering and status indicators
+4)Responsive layout with collapsible sidebar
+5)Dark and Light theme support
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Deployment URL:
+https://fenrir-assessment-omega.vercel.app/login
 
-## React Compiler
+Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Core Framework
+React - UI library for building component based interfaces
+Vite – Fast build tool and development server
 
-## Expanding the ESLint configuration
+Styling
+Tailwind CSS – Utility first CSS framework
+Flowbite React – UI components and Forms compatible with Tailwind
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+State & Routing
+React Router – Client side routing for navigation between screens
+
+Icons
+Heroicons – Icon set used across the dashboard
+
+Theming
+A custom CSS variable theme system was implemented to support both Light Mode and Dark Mode.
+
+Responsive Design
+Mobile: 375px
+Desktop: 1280px+
+
+Setup
+git clone https://github.com/anandpopalwar/Fenrir-assessment anand_assesment
+
+cd anand_assesment
+npm install
+npm run dev
+http://localhost:5173
+npm run build
+npm run preview
